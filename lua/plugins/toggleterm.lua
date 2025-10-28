@@ -1,47 +1,47 @@
 return {
-  'akinsho/toggleterm.nvim',
-  version = '*',
-  config = function()
-    require('toggleterm').setup {
-      size = 15,
-      open_mapping = [[<C-`>]],
-      hide_numbers = true,
-      shade_terminals = true,
-      shading_factor = 2,
-      start_in_insert = true,
-      insert_mappings = true,
-      persist_size = true,
-      direction = 'float', -- 'vertical' | 'horizontal' | 'float' | 'tab'
-      close_on_exit = true,
-      shell = vim.o.shell,
-      float_opts = {
-        border = 'curved',
-        winblend = 0,
-      },
-    }
-
-    local keymap = vim.keymap.set
-    local opts = { noremap = true, silent = true, desc = '' }
-
-    keymap('n', '<leader>tt', '<cmd>ToggleTerm<CR>', vim.tbl_extend('force', opts, { desc = 'Toggle terminal' }))
-    keymap('n', '<leader>th', '<cmd>ToggleTerm direction=horizontal<CR>', vim.tbl_extend('force', opts, { desc = 'Horizontal terminal' }))
-    keymap('n', '<leader>tv', '<cmd>ToggleTerm direction=vertical size=50<CR>', vim.tbl_extend('force', opts, { desc = 'Vertical terminal' }))
-    keymap('n', '<leader>tf', '<cmd>ToggleTerm direction=float<CR>', vim.tbl_extend('force', opts, { desc = 'Floating terminal' }))
-
-    local function set_terminal_keymaps(ev)
-      local opts = { buffer = ev.buf }
-      vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], opts)
-      -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
-      vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-      vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-      vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-      vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-    end
-
-    vim.api.nvim_create_autocmd('TermOpen', {
-      group = vim.api.nvim_create_augroup('TerminalKeymaps', { clear = true }),
-      pattern = 'term://*',
-      callback = set_terminal_keymaps,
-    })
-  end,
+  -- 'akinsho/toggleterm.nvim',
+  -- version = '*',
+  -- config = function()
+  --   require('toggleterm').setup {
+  --     size = 15,
+  --     open_mapping = [[<C-`>]],
+  --     hide_numbers = true,
+  --     shade_terminals = true,
+  --     shading_factor = 2,
+  --     start_in_insert = true,
+  --     insert_mappings = true,
+  --     persist_size = true,
+  --     direction = 'float', -- 'vertical' | 'horizontal' | 'float' | 'tab'
+  --     close_on_exit = true,
+  --     shell = vim.o.shell,
+  --     float_opts = {
+  --       border = 'curved',
+  --       winblend = 0,
+  --     },
+  --   }
+  --
+  --   local keymap = vim.keymap.set
+  --   local opts = { noremap = true, silent = true, desc = '' }
+  --
+  --   keymap('n', '<leader>tt', '<cmd>ToggleTerm<CR>', vim.tbl_extend('force', opts, { desc = 'Toggle terminal' }))
+  --   keymap('n', '<leader>th', '<cmd>ToggleTerm direction=horizontal<CR>', vim.tbl_extend('force', opts, { desc = 'Horizontal terminal' }))
+  --   keymap('n', '<leader>tv', '<cmd>ToggleTerm direction=vertical size=50<CR>', vim.tbl_extend('force', opts, { desc = 'Vertical terminal' }))
+  --   keymap('n', '<leader>tf', '<cmd>ToggleTerm direction=float<CR>', vim.tbl_extend('force', opts, { desc = 'Floating terminal' }))
+  --
+  --   local function set_terminal_keymaps(ev)
+  --     local opts = { buffer = ev.buf }
+  --     vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], opts)
+  --     -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  --     vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  --     vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  --     vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  --     vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  --   end
+  --
+  --   vim.api.nvim_create_autocmd('TermOpen', {
+  --     group = vim.api.nvim_create_augroup('TerminalKeymaps', { clear = true }),
+  --     pattern = 'term://*',
+  --     callback = set_terminal_keymaps,
+  --   })
+  -- end,
 }
