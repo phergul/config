@@ -14,10 +14,10 @@ return {
             -- vim.keymap.set('t', '<C-`>', function()
             --   floaterm.toggle()
             -- end, { buffer = buf, silent = true })
-            vim.keymap.set('t', '<C-s>', function()
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-\\><C-n>', true, false, true), 'n', false)
-              require('floaterm.api').switch_wins()
-            end, { buffer = buf, silent = true, desc = 'Switch between Floaterm windows' })
+            -- vim.keymap.set('t', '<C-s>', function()
+            --   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-\\><C-n>', true, false, true), 'n', false)
+            --   require('floaterm.api').switch_wins()
+            -- end, { buffer = buf, silent = true, desc = 'Switch between Floaterm windows' })
           end,
         },
       }

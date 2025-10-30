@@ -39,7 +39,7 @@ return {
         local removed = diff and diff.removed and ('-' .. diff.removed) or ''
 
         local parts = { branch, added, changed, removed }
-        return ' ' .. table.concat(
+        return ' ' .. table.concat(
           vim.tbl_filter(function(s)
             return s ~= ''
           end, parts),
