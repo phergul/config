@@ -25,3 +25,11 @@ vim.keymap.set('n', '<S-D-l>', 'gt', opts)
 
 vim.keymap.set('i', '<S-D-h>', '<Esc>gT', opts)
 vim.keymap.set('i', '<S-D-l>', '<Esc>gt', opts)
+
+vim.keymap.set('n', '<leader>rr', function()
+  require('go_test_picker').go_test_picker()
+end, {})
+
+vim.keymap.set('n', '<leader>rf', function()
+  require('go_test_picker').run_all_go_tests()
+end, {})
