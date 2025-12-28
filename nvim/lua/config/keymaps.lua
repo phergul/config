@@ -33,3 +33,5 @@ end, {})
 vim.keymap.set('n', '<leader>rf', function()
   require('go_test_picker').run_all_go_tests()
 end, {})
+
+vim.keymap.set('n', '<leader>hb', '<cmd>Git blame<cr>', { desc = 'Toggle git blame' })

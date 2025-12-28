@@ -3,49 +3,72 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
   config = function()
-	-- stylua: ignore
-    local colors = {
-      blue = '#80a0ff',
-      cyan = '#79dac8',
-      black = '#080808',
-      white = '#c6c6c6',
-      red = '#ff5189',
-      grey = '#303030',
-      lightgrey = '#73788B',
-    }
-
-    local bubbles_theme = {
+    local colours = _G.GhosttyPalette or {}
+    local custom_theme = {
       normal = {
-        a = { fg = colors.black, bg = colors.lightgrey },
-        b = { fg = colors.white, bg = colors.grey },
-        c = { fg = colors.white },
+        a = { bg = colours.green, fg = colours.bg, gui = 'bold' },
+        b = { bg = colours.black, fg = colours.white },
+        c = { bg = colours.bg, fg = colours.fg },
       },
-
-      insert = { a = { fg = colors.black, bg = colors.blue } },
-      visual = { a = { fg = colors.black, bg = colors.cyan } },
-      replace = { a = { fg = colors.black, bg = colors.red } },
-
+      insert = {
+        a = { bg = colours.red, fg = colours.white, gui = 'bold' },
+      },
+      visual = {
+        a = { bg = colours.yellow, fg = colours.bg, gui = 'bold' },
+      },
+      replace = {
+        a = { bg = colours.b_red, fg = colours.bg, gui = 'bold' },
+      },
       inactive = {
-        a = { fg = colors.white, bg = colors.black },
-        b = { fg = colors.white, bg = colors.black },
-        c = { fg = colors.white },
+        a = { bg = colours.bg, fg = colours.black },
+        b = { bg = colours.bg, fg = colours.black },
+        c = { bg = colours.bg, fg = colours.black },
       },
     }
+    --
+    -- -- stylua: ignore
+    --    local colors = {
+    --      blue = '#80a0ff',
+    --      cyan = '#79dac8',
+    --      black = '#080808',
+    --      white = '#c6c6c6',
+    --      red = '#ff5189',
+    --      grey = '#303030',
+    --      lightgrey = '#73788B',
+    --    }
+    --
+    --    local bubbles_theme = {
+    --      normal = {
+    --        a = { fg = colors.black, bg = colors.lightgrey },
+    --        b = { fg = colors.white, bg = colors.grey },
+    --        c = { fg = colors.white },
+    --      },
+    --
+    --      insert = { a = { fg = colors.black, bg = colors.blue } },
+    --      visual = { a = { fg = colors.black, bg = colors.cyan } },
+    --      replace = { a = { fg = colors.black, bg = colors.red } },
+    --
+    --      inactive = {
+    --        a = { fg = colors.white, bg = colors.black },
+    --        b = { fg = colors.white, bg = colors.black },
+    --        c = { fg = colors.white },
+    --      },
+    --    }
 
     require('lualine').setup {
       options = {
-        theme = bubbles_theme,
+        theme = custom_theme,
         component_separators = '',
         section_separators = { left = '', right = '' },
       },
       sections = {
-        lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+        lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
         lualine_b = { 'branch', 'diff', 'filename' },
         lualine_c = {},
         lualine_x = {},
         lualine_y = { 'filetype', 'progress' },
         lualine_z = {
-          { 'location', separator = { right = '' }, left_padding = 2 },
+          { 'location', separator = { right = '' }, left_padding = 2 },
         },
       },
       inactive_sections = {
@@ -58,45 +81,6 @@ return {
       },
       tabline = {},
       extensions = {},
-    } -- require('lualine').setup {
-    --   options = {
-    --     icons_enabled = true,
-    --     -- theme = 'iceberg_dark',
-    --     -- component_separators = { left = '', right = '' },
-    --     component_separators = '',
-    --     section_separators = { left = '', right = '' },
-    --     disabled_filetypes = {
-    --       statusline = {},
-    --       winbar = {},
-    --     },
-    --     always_divide_middle = true,
-    --     globalstatus = false,
-    --     refresh = {
-    --       statusline = 1000,
-    --       tabline = 1000,
-    --       winbar = 1000,
-    --     },
-    --   },
-    --   sections = {
-    --     lualine_a = { 'mode' },
-    --     lualine_b = { 'branch', 'diff' },
-    --     lualine_c = { 'filename' },
-    --     lualine_x = { 'encoding', 'filetype' },
-    --     lualine_y = { 'progress' },
-    --     lualine_z = { 'location' },
-    --   },
-    --   inactive_sections = {
-    --     lualine_a = {},
-    --     lualine_b = {},
-    --     lualine_c = { 'filename' },
-    --     lualine_x = { 'location' },
-    --     lualine_y = {},
-    --     lualine_z = {},
-    --   },
-    --   tabline = {},
-    --   winbar = {},
-    --   inactive_winbar = {},
-    --   extensions = {},
-    -- }
+    }
   end,
 }

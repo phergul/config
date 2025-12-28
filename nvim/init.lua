@@ -1,3 +1,4 @@
+require 'colours.ghostty_sync'
 require 'config.options'
 require 'config.keymaps'
 require 'config.commands'

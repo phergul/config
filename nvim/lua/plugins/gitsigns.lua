@@ -35,7 +35,7 @@ return {
       end, { desc = 'Jump to previous git [c]hange' })
 
       map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
-      map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
+      -- map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
       map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
       map('n', '<leader>hD', function()
         gitsigns.diffthis '@'
