@@ -288,7 +288,7 @@ web_client {
 // 
 // theme "catppuccin-macchiato"
 themes {
-	ghostty_sync {
+	spacedust {
 		fg "#ecf0c1"      
 		bg "#0a1e24"     
 		black "#0a1e24"
@@ -301,22 +301,9 @@ themes {
 		white "#6e5346"
 		orange "#e35b00"
 	}
-	ghostty_rusty {
-        fg "#ecf0c1"
-        bg "#0a1e24"
-        black "#6e5346"
-        red "#e35b00"   
-        green "#5cab96"
-        yellow "#e3cd7b"
-        blue "#0f548b"
-        magenta "#ff8a3a"
-        cyan "#06afc7"
-        white "#f0f1ce"
-        orange "#e35b00"
-    }
 }
 
-theme "ghostty_sync"
+theme "spacedust"
 
 // Choose the base input mode of zellij.
 // Default: normal

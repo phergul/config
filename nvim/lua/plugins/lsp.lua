@@ -137,5 +137,19 @@ return {
         end,
       },
     }
+    --
+    -- vim.lsp.config('sourcekit', {
+    --   cmd = { '/usr/bin/sourcekit-lsp' },
+    --   filetypes = { 'swift', 'objc', 'objcpp', 'c', 'cpp' },
+    --   root_markers = { 'Package.swift', '.git' },
+    --   capabilities = {
+    --     workspace = {
+    --       didChangeWatchedFiles = {
+    --         dynamicRegistration = true,
+    --       },
+    --     },
+    --   },
+    -- })
+    -- vim.lsp.enable 'sourcekit'
   end,
 }

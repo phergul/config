@@ -3,28 +3,28 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
 
   config = function()
-    local colours = _G.GhosttyPalette or {}
-    local custom_theme = {
-      normal = {
-        a = { bg = colours.green, fg = colours.bg, gui = 'bold' },
-        b = { bg = colours.black, fg = colours.white },
-        c = { bg = colours.bg, fg = colours.fg },
-      },
-      insert = {
-        a = { bg = colours.red, fg = colours.white, gui = 'bold' },
-      },
-      visual = {
-        a = { bg = colours.yellow, fg = colours.bg, gui = 'bold' },
-      },
-      replace = {
-        a = { bg = colours.b_red, fg = colours.bg, gui = 'bold' },
-      },
-      inactive = {
-        a = { bg = colours.bg, fg = colours.black },
-        b = { bg = colours.bg, fg = colours.black },
-        c = { bg = colours.bg, fg = colours.black },
-      },
-    }
+    -- local colours = _G.GhosttyPalette or {}
+    -- local custom_theme = {
+    --   normal = {
+    --     a = { bg = colours.green, fg = colours.bg, gui = 'bold' },
+    --     b = { bg = colours.black, fg = colours.white },
+    --     c = { bg = colours.bg, fg = colours.fg },
+    --   },
+    --   insert = {
+    --     a = { bg = colours.red, fg = colours.white, gui = 'bold' },
+    --   },
+    --   visual = {
+    --     a = { bg = colours.yellow, fg = colours.bg, gui = 'bold' },
+    --   },
+    --   replace = {
+    --     a = { bg = colours.b_red, fg = colours.bg, gui = 'bold' },
+    --   },
+    --   inactive = {
+    --     a = { bg = colours.bg, fg = colours.black },
+    --     b = { bg = colours.bg, fg = colours.black },
+    --     c = { bg = colours.bg, fg = colours.black },
+    --   },
+    -- }
     --
     -- -- stylua: ignore
     --    local colors = {
@@ -57,7 +57,7 @@ return {
 
     require('lualine').setup {
       options = {
-        theme = custom_theme,
+        theme = require('spacedust.lualine').setup(),
         component_separators = '',
         section_separators = { left = '', right = '' },
       },
