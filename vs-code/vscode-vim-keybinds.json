@@ -1,40 +1,45 @@
 [
-    {
-        "key": "tab",
-        "command": "-editor.action.inlineSuggest.commit",
-        "when": "inlineSuggestionVisible && !editorReadonly"
+  {
+    "key": "tab",
+    "command": "-editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestionVisible && !editorReadonly"
+  },
+  {
+    "key": "tab",
+    "command": "-editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+  },
+  {
+    "key": "tab",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetVisible && vim.mode == 'Insert'"
+  },
+  {
+    "key": "shift+tab",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetVisible && vim.mode == 'Insert'"
+  },
+  {
+    "key": "enter",
+    "command": "acceptSelectedSuggestion",
+    "when": "suggestWidgetVisible && vim.mode == 'Insert'"
+  },
+  {
+    "key": "enter",
+    "command": "type",
+    "args": {
+      "text": "\n"
     },
-    {
-        "key": "tab",
-        "command": "-editor.action.inlineSuggest.commit",
-        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
-    },
-    {
-        "key": "tab",
-        "command": "selectNextSuggestion",
-        "when": "suggestWidgetVisible && vim.mode == 'Insert'"
-    },
-    {
-        "key": "shift+tab",
-        "command": "selectPrevSuggestion",
-        "when": "suggestWidgetVisible && vim.mode == 'Insert'"
-    },
-    {
-        "key": "enter",
-        "command": "acceptSelectedSuggestion",
-        "when": "suggestWidgetVisible && vim.mode == 'Insert'"
-    },
-    {
-        "key": "enter",
-        "command": "type",
-        "args": {
-            "text": "\n"
-        },
-        "when": "!suggestWidgetVisible && vim.mode == 'Insert'"
-    },
-    {
-        "key": "`",
-        "command": "editor.action.inlineSuggest.commit",
-        "when": "inlineSuggestionVisible && !editorReadonly && vim.mode == 'Insert'"
-    }
+    "when": "!suggestWidgetVisible && vim.mode == 'Insert'"
+  },
+  {
+    "key": "`",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestionVisible && !editorReadonly && vim.mode == 'Insert'"
+  },
+  {
+    "key": "§",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestionVisible && !editorReadonly && vim.mode == 'Insert'"
+  }
 ]
