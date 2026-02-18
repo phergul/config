@@ -1,6 +1,5 @@
 return {
-  'go-type-hover.nvim',
-  dev = true,
+  'phergul/go-type-hover.nvim',
   opts = {
     float = {
       show_footer = false,
