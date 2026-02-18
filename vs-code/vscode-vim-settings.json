@@ -9,9 +9,7 @@
     "comments": false,
     "strings": false
   },
-  "editor.insertSpaces": false,
-  "editor.tabSize": 4,
-  "editor.detectIndentation": false,
+  "editor.detectIndentation": true,
   "editor.lineNumbers": "relative",
   "editor.cursorSurroundingLines": 10,
   "editor.renderLineHighlight": "line",
