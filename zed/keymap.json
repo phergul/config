@@ -1,0 +1,115 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-h": "workspace::ActivatePaneLeft",
+      "cmd-j": "workspace::ActivatePaneDown",
+      "cmd-k": "workspace::ActivatePaneUp",
+      "cmd-l": "workspace::ActivatePaneRight",
+      "shift-cmd-h": "pane::ActivatePreviousItem",
+      "shift-cmd-l": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "tab": "editor::ContextMenuNext",
+      "shift-tab": "editor::ContextMenuPrevious",
+      "enter": "editor::ConfirmCompletion"
+    }
+  },
+  {
+    "context": "Editor && (edit_prediction || copilot_suggestion || edit_prediction_conflict)",
+    "bindings": {
+      "§": "editor::AcceptEditPrediction"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+      "shift-k": "editor::Hover",
+      "] c": "editor::GoToHunk",
+      "[ c": "editor::GoToPreviousHunk",
+      "g r n": "editor::Rename",
+      "g r a": "editor::ToggleCodeActions",
+      "g r r": "editor::FindAllReferences",
+      "g r i": "editor::GoToImplementation",
+      "g r d": "editor::GoToDefinition",
+      "g r shift-d": "editor::GoToDeclaration",
+      "g r t": "editor::GoToTypeDefinition",
+      "g shift-o": "outline_panel::ToggleFocus",
+      "g shift-w": "project_symbols::Toggle",
+      "space w": "workspace::Save",
+      "space q": "diagnostics::DeployCurrentFile",
+      "space f": "editor::Format",
+      "space c c": "workspace::ToggleEditPrediction",
+      "space g": [
+        "task::Spawn",
+        {
+          "task_name": "LazyGit",
+          "reveal_target": "center"
+        }
+      ],
+      "space h b": "editor::BlameHover",
+      "space h d": "git::Diff",
+      "space t b": "editor::BlameHover",
+      "space t i": "editor::ToggleInlayHints",
+      "space r r": "task::Spawn",
+      "space r f": "task::Rerun",
+      "space /": "buffer_search::Deploy",
+      "space space": "tab_switcher::ToggleAll",
+      "space b b": "tab_switcher::ToggleAll",
+      "space b d": "pane::CloseActiveItem",
+      "space b shift-d": "pane::CloseOtherItems",
+      "space b n": "pane::SwapItemRight",
+      "space b p": "pane::SwapItemLeft",
+      "space e e": "project_panel::ToggleFocus",
+      "space e f": "pane::RevealInProjectPanel",
+      "space s b": "tab_switcher::ToggleAll",
+      "space s d": "diagnostics::Deploy",
+      "space s f": "file_finder::Toggle",
+      "space s g": "pane::DeploySearch",
+      "space s h": "zed::OpenDocs",
+      "space s k": "zed::OpenKeymap",
+      "space s s": "command_palette::Toggle",
+      "space s w": "pane::DeploySearch",
+      "space s /": "pane::DeploySearch",
+      "space s shift-r": [
+        "pane::DeploySearch",
+        {
+          "replace_enabled": true
+        }
+      ]
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      ":": "command_palette::Toggle",
+      "%": "project_panel::NewFile",
+      "/": "project_panel::NewSearchInDirectory",
+      "d": "project_panel::NewDirectory",
+      "enter": "project_panel::OpenPermanent",
+      "escape": "vim::ToggleProjectPanelFocus",
+      "h": "project_panel::CollapseSelectedEntry",
+      "j": "vim::MenuSelectNext",
+      "k": "vim::MenuSelectPrevious",
+      "down": "vim::MenuSelectNext",
+      "up": "vim::MenuSelectPrevious",
+      "l": "project_panel::ExpandSelectedEntry",
+      "shift-d": "project_panel::Delete",
+      "shift-r": "project_panel::Rename",
+      "t": "project_panel::OpenPermanent",
+      "v": "project_panel::OpenSplitVertical",
+      "o": "project_panel::OpenSplitHorizontal",
+      "p": "project_panel::Open",
+      "x": "project_panel::RevealInFileManager",
+      "s": "workspace::OpenWithSystem",
+      "|": "project_panel::OpenSplitVertical",
+      "\\": "project_panel::OpenSplitHorizontal",
+      "g .": "project_panel::ToggleHideHidden"
+    }
+  }
+]
