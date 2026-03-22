@@ -82,7 +82,6 @@ return {
       completion = {
         menu = {
           border = 'rounded',
-          accept = { auto_brackets = { enable = true } },
 
           draw = {
             columns = {

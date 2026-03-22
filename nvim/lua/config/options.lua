@@ -32,7 +32,7 @@ vim.o.smartcase = true
 
 vim.o.signcolumn = 'yes'
 
-vim.o.updatetime = 250
+vim.o.updatetime = 0
 
 vim.o.timeoutlen = 1000
 

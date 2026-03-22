@@ -286,7 +286,7 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-// theme "catppuccin-macchiato"
+theme "catppuccin-frappe"
 themes {
 	spacedust {
 		fg "#ecf0c1"      
@@ -303,7 +303,7 @@ themes {
 	}
 }
 
-theme "spacedust"
+// theme "spacedust"
 
 // Choose the base input mode of zellij.
 // Default: normal
