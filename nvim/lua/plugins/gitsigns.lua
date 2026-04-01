@@ -2,13 +2,6 @@
 return {
   'lewis6991/gitsigns.nvim',
   opts = {
-    signs = {
-      add = { text = '+' },
-      change = { text = '~' },
-      delete = { text = '_' },
-      topdelete = { text = '‾' },
-      changedelete = { text = '~' },
-    },
     on_attach = function(bufnr)
       local gitsigns = require 'gitsigns'
 
@@ -34,7 +27,7 @@ return {
         end
       end, { desc = 'Jump to previous git [c]hange' })
 
-      map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
+      map('n', '<leader>hp', gitsigns.preview_hunk_inline, { desc = 'git [p]review hunk' })
       -- map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
       map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
       map('n', '<leader>hD', function()
@@ -43,6 +36,8 @@ return {
 
       map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
       map('n', '<leader>tD', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
+
+      map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'git [R]eset hunk' })
     end,
   },
 }
