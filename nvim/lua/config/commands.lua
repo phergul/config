@@ -6,6 +6,30 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.opt.autoread = true
+
+local group = vim.api.nvim_create_augroup('AutoReadChangedFiles', { clear = true })
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  group = group,
+  pattern = '*',
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd 'checktime'
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileChangedShellPost', {
+  group = group,
+  pattern = '*',
+  callback = function()
+    vim.notify('File changed on disk. Buffer reloaded.', vim.log.levels.INFO, {
+      title = 'nvim',
+    })
+  end,
+})
+
 vim.keymap.set('n', 'K', function()
   vim.lsp.buf.hover { border = 'rounded' }
 end, { desc = 'LSP hover with border' })

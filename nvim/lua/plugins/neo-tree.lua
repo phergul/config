@@ -27,7 +27,12 @@ return {
         commands = {
           trash = function(state)
             local inputs = require 'neo-tree.ui.inputs'
-            local path = state.tree:get_node().path
+            local node = state.tree:get_node()
+            if not node then
+              return
+            end
+
+            local path = node:get_id()
             local utils = require 'neo-tree.utils'
             local _, name = utils.split_path(path)
 
@@ -38,13 +43,11 @@ return {
                 return
               end
 
-              pcall(function()
-                vim.fn.system { 'trash', vim.fn.fnameescape(path) }
-                if vim.v.shell_error ~= 0 then
-                  msg = 'trash command failed.'
-                  vim.notify(msg, vim.log.levels.ERROR, { title = 'Neo-tree' })
-                end
-              end)
+              vim.fn.system { 'trash', path }
+              if vim.v.shell_error ~= 0 then
+                msg = 'trash command failed.'
+                vim.notify(msg, vim.log.levels.ERROR, { title = 'Neo-tree' })
+              end
 
               require('neo-tree.sources.manager').refresh(state.name)
             end)
@@ -60,13 +63,11 @@ return {
               end
 
               for _, node in ipairs(selected_nodes) do
-                pcall(function()
-                  vim.fn.system { 'trash', vim.fn.fnameescape(node.path) }
-                  if vim.v.shell_error ~= 0 then
-                    msg = 'trash command failed.'
-                    vim.notify(msg, vim.log.levels.ERROR, { title = 'Neo-tree' })
-                  end
-                end)
+                vim.fn.system { 'trash', node.path }
+                if vim.v.shell_error ~= 0 then
+                  msg = 'trash command failed.'
+                  vim.notify(msg, vim.log.levels.ERROR, { title = 'Neo-tree' })
+                end
               end
 
               require('neo-tree.sources.manager').refresh(state.name)
@@ -87,12 +88,8 @@ return {
       },
     }
 
-    vim.keymap.set('n', '<leader>ee', '<cmd>Neotree toggle filesystem reveal left<CR>', {
+    vim.keymap.set('n', '<leader>et', '<cmd>Neotree toggle filesystem reveal left<CR>', {
       desc = 'Open File Explorer',
-    })
-
-    vim.keymap.set('n', '<leader>ef', '<cmd>Neotree focus filesystem reveal left<CR>', {
-      desc = 'Open File Explorer at current file',
     })
   end,
 }

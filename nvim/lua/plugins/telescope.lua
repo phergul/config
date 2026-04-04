@@ -17,33 +17,7 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
-    require('telescope').setup {
-      extensions = {
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown(),
-        },
-      },
-      -- defaults = {
-      --   mappings = {
-      --     n = {
-      --       ['\\'] = require('telescope.actions').select_vertical,
-      --       ['|'] = require('telescope.actions').select_tab,
-      --     },
-      --     i = {
-      --       ['<C-\\>'] = require('telescope.actions').select_vertical,
-      --       ['<C-|>'] = require('telescope.actions').select_tab,
-      --     },
-      --   },
-      -- },
-      -- pickers = {
-      --   find_files = {
-      --     hidden = true,
-      --   },
-      -- },
-    }
-
     pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'ui-select')
     require('custom_telescope_pickers.git_changes').setup()
 
     local builtin = require 'telescope.builtin'
