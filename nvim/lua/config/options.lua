@@ -8,6 +8,8 @@ vim.g.copilot_no_tab_map = true
 vim.g.copilot_no_maps = true
 vim.g.copilot_assume_mapped = true
 
+vim.opt.mouse = ""
+
 vim.opt.nu = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -32,7 +34,7 @@ vim.o.smartcase = true
 
 vim.o.signcolumn = 'yes'
 
-vim.o.updatetime = 500
+vim.o.updatetime = 50
 
 vim.o.timeoutlen = 1000
 

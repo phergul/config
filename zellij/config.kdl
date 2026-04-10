@@ -156,8 +156,6 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocus "right"; }
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
-        bind "Alt p" { TogglePaneInGroup; }
-        bind "Alt Shift p" { ToggleGroupMarking; }
         bind "Ctrl Alt q" { Quit; }
     }
     shared_except "locked" "move" {
@@ -265,6 +263,7 @@ plugins {
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
+	zjstatus location="file:~/.config/zellij/plugins/zjstatus.wasm"
 }
 
 // Plugins to load in the background when a new session starts
@@ -286,22 +285,21 @@ web_client {
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-theme "catppuccin-frappe"
-themes {
-	spacedust {
-		fg "#ecf0c1"      
-		bg "#0a1e24"     
-		black "#0a1e24"
-		red "#e35b00"
-		green "#5cab96"
-		yellow "#e3cd7b"
-		blue "#0f548b"
-		magenta "#ff8a3a"
-		cyan "#06afc7"
-		white "#6e5346"
-		orange "#e35b00"
-	}
-}
+theme "catppuccin-macchiato"
+// 	spacedust {
+// 		fg "#ecf0c1"      
+// 		bg "#0a1e24"     
+// 		black "#0a1e24"
+// 		red "#e35b00"
+// 		green "#5cab96"
+// 		yellow "#e3cd7b"
+// 		blue "#0f548b"
+// 		magenta "#ff8a3a"
+// 		cyan "#06afc7"
+// 		white "#6e5346"
+// 		orange "#e35b00"
+// 	}
+// }
 
 // theme "spacedust"
 
@@ -313,7 +311,7 @@ themes {
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 // 
-// default_shell "fish"
+default_shell "zsh"
  
 // Choose the path to override cwd that zellij will use for opening new panes
 // 
@@ -322,7 +320,7 @@ themes {
 // The name of the default layout to load on startup
 // Default: "default"
 // 
-default_layout "compact"
+default_layout "default"
  
 // The folder in which Zellij will look for layouts
 // (Requires restart)
@@ -348,7 +346,7 @@ default_layout "compact"
 //   - true (default, enabled)
 //   - false
 // 
-// pane_frames fals
+pane_frames false
 
 
 // When attaching to an existing session with other users,
