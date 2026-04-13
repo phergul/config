@@ -33,3 +33,9 @@ vim.api.nvim_create_autocmd('FileChangedShellPost', {
 vim.keymap.set('n', 'K', function()
   vim.lsp.buf.hover { border = 'rounded' }
 end, { desc = 'LSP hover with border' })
+
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
+})

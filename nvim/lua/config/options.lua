@@ -8,7 +8,7 @@ vim.g.copilot_no_tab_map = true
 vim.g.copilot_no_maps = true
 vim.g.copilot_assume_mapped = true
 
-vim.opt.mouse = ""
+vim.opt.mouse = ''
 
 vim.opt.nu = true
 vim.opt.tabstop = 4
