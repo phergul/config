@@ -17,6 +17,16 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
+    local icons = require 'config.icons'
+
+    local border_style = require('config.ui').get_border()
+    require('telescope').setup {
+      defaults = {
+        border = border_style ~= 'none',
+        borderchars = icons.borders[border_style],
+      },
+    }
+
     pcall(require('telescope').load_extension, 'fzf')
     require('custom_telescope_pickers.git_changes').setup()
 

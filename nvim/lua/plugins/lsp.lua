@@ -10,7 +10,9 @@ return {
     'saghen/blink.cmp',
   },
   config = function()
-    vim.o.winborder = 'rounded'
+    local icons = require 'config.icons'
+    local ui = require 'config.ui'
+    local border = ui.get_border()
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -76,10 +78,10 @@ return {
       underline = { severity = vim.diagnostic.severity.ERROR },
       signs = vim.g.have_nerd_font and {
         text = {
-          [vim.diagnostic.severity.ERROR] = '󰅚 ',
-          [vim.diagnostic.severity.WARN] = '󰀪 ',
-          [vim.diagnostic.severity.INFO] = '󰋽 ',
-          [vim.diagnostic.severity.HINT] = '󰌶 ',
+          [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
+          [vim.diagnostic.severity.WARN] = icons.diagnostics.warn,
+          [vim.diagnostic.severity.INFO] = icons.diagnostics.info,
+          [vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
         },
       } or {},
       virtual_text = {

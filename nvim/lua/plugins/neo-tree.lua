@@ -7,9 +7,11 @@ return {
     'MunifTanjim/nui.nvim',
   },
   config = function()
+    local border = require('config.ui').get_border()
+
     require('neo-tree').setup {
       close_if_last_window = true,
-      popup_border_style = 'rounded',
+      popup_border_style = border,
       enable_git_status = true,
       enable_diagnostics = true,
 
@@ -88,8 +90,8 @@ return {
       },
     }
 
-    vim.keymap.set('n', '<leader>et', '<cmd>Neotree toggle filesystem reveal left<CR>', {
-      desc = 'Open File Explorer',
-    })
+    -- vim.keymap.set('n', '<leader>et', '<cmd>Neotree toggle filesystem reveal left<CR>', {
+    --   desc = 'Open File Explorer',
+    -- })
   end,
 }

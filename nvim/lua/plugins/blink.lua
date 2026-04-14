@@ -29,7 +29,7 @@ return {
         desc = 'Toggle Sidekick NES',
       },
       {
-        '§',
+        '`',
         function()
           if require('sidekick').nes_jump_or_apply() then
             return
@@ -51,61 +51,65 @@ return {
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
-    opts = {
-      keymap = {
-        preset = 'none',
-        ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
-        ['<CR>'] = { 'accept', 'fallback' },
-        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-      },
+    opts = function()
+      local border = require('config.ui').get_border()
 
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
-
-        providers = {
-          copilot = {
-            name = 'copilot',
-            module = 'blink-cmp-copilot',
-            score_offset = 100,
-            async = true,
-          },
+      return {
+        keymap = {
+          preset = 'none',
+          ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+          ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+          ['<CR>'] = { 'accept', 'fallback' },
+          ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+          ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
         },
-      },
 
-      appearance = {
-        use_nvim_cmp_as_default = true,
-        nerd_font_variant = 'mono',
-      },
+        sources = {
+          default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
 
-      completion = {
-        menu = {
-          border = 'rounded',
-
-          draw = {
-            columns = {
-              { 'kind_icon' },
-              { 'label', 'label_description', gap = 1 },
-              { 'source_name' },
+          providers = {
+            copilot = {
+              name = 'copilot',
+              module = 'blink-cmp-copilot',
+              score_offset = 100,
+              async = true,
             },
           },
         },
 
-        documentation = {
-          auto_show = true,
-          auto_show_delay_ms = 200,
-          window = {
-            border = 'rounded',
+        appearance = {
+          use_nvim_cmp_as_default = true,
+          nerd_font_variant = 'mono',
+        },
+
+        completion = {
+          menu = {
+            border = border,
+
+            draw = {
+              columns = {
+                { 'kind_icon' },
+                { 'label', 'label_description', gap = 1 },
+                { 'source_name' },
+              },
+            },
+          },
+
+          documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 200,
+            window = {
+              border = border,
+            },
           },
         },
-      },
 
-      signature = {
-        enabled = true,
-        window = { border = 'rounded' },
-      },
-    },
+        signature = {
+          enabled = true,
+          window = { border = border },
+        },
+      }
+    end,
   },
 
   {

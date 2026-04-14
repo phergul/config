@@ -4,15 +4,12 @@ return {
   config = function()
     -- files
     require('mini.files').setup {}
-    vim.keymap.set('n', '<leader>ee', function()
-      require('mini.files').open()
-    end, { desc = 'Open File Explorer' })
-
-    vim.keymap.set('n', '<leader>ef', function()
-      local buf_name = vim.api.nvim_buf_get_name(0)
-      local path = buf_name ~= '' and buf_name or vim.fn.getcwd()
-      require('mini.files').open(path, true)
-    end, { desc = 'Open File Explorer at current file' })
+    -- open file explorer with <leader>e opened on the current file with panels to the root shown
+    vim.keymap.set('n', '<leader>e', function()
+      local MiniFiles = require 'mini.files'
+      MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+      MiniFiles.reveal_cwd()
+    end, { desc = 'Open file explorer' })
 
     -- ai
     require('mini.ai').setup()

@@ -4,11 +4,11 @@ local state_file = vim.fn.stdpath 'state' .. '/theme_mode'
 M.themes = {
   dark = {
     background = 'dark',
-    colorscheme = 'catppuccin-macchiato',
+    colorscheme = 'rose-pine',
   },
   light = {
     background = 'light',
-    colorscheme = 'catppuccin-latte',
+    colorscheme = 'gruvbox',
   },
 }
 

@@ -6,16 +6,11 @@ local finders = require 'telescope.finders'
 local pickers = require 'telescope.pickers'
 local previewers = require 'telescope.previewers'
 local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
+local icons = require 'config.icons'
 
 local M = {}
 
 local ns = vim.api.nvim_create_namespace 'telescope_git_changes'
-
-local icons = {
-  modified = '󰏫',
-  added = '󰐖',
-  staged = '󰄬',
-}
 
 local status_priority = {
   S = 1,
@@ -163,7 +158,7 @@ local function shorten_path(dir, max_len)
 
   local candidate = table.concat(shortened, '/')
   if #candidate > max_len then
-    candidate = '…/' .. table.concat({ parts[#parts - 1], parts[#parts] }, '/')
+    candidate = icons.ui.ellipsis .. '/' .. table.concat({ parts[#parts - 1], parts[#parts] }, '/')
   end
 
   return candidate .. '/'
@@ -172,10 +167,10 @@ end
 local function get_file_icon(filename, path)
   if has_devicons then
     local icon, icon_hl = devicons.get_icon(filename, vim.fn.fnamemodify(path, ':e'), { default = true })
-    return icon or '', icon_hl or 'TelescopeGitFile'
+    return icon or icons.files.default, icon_hl or 'TelescopeGitFile'
   end
 
-  return '', 'TelescopeGitFile'
+  return icons.files.default, 'TelescopeGitFile'
 end
 
 local function make_item(path, kind, staged)
@@ -185,25 +180,25 @@ local function make_item(path, kind, staged)
   local spec = {
     staged = {
       status = 'S',
-      icon = icons.staged,
+      icon = icons.git_changes.staged,
       hl = 'TelescopeGitStaged',
       source = 'index',
     },
     modified = {
       status = 'M',
-      icon = icons.modified,
+      icon = icons.git_changes.modified,
       hl = 'TelescopeGitModified',
       source = 'worktree',
     },
     added = {
       status = 'A',
-      icon = icons.added,
+      icon = icons.git_changes.added,
       hl = 'TelescopeGitAdded',
       source = 'worktree',
     },
     untracked = {
       status = 'A',
-      icon = icons.added,
+      icon = icons.git_changes.added,
       hl = 'TelescopeGitAdded',
       source = 'untracked',
     },
