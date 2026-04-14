@@ -17,6 +17,7 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
+    require('telescope').load_extension 'ui-select'
     local icons = require 'config.icons'
 
     local border_style = require('config.ui').get_border()
