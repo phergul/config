@@ -35,3 +35,5 @@ vim.keymap.set('n', '<leader>rf', function()
 end, {})
 
 vim.keymap.set('n', '<leader>hb', '<cmd>Git blame<cr>', { desc = 'Toggle git blame' })
+
+vim.keymap.set('n', '<leader>Re', '<cmd>restart<cr>', { desc = 'Restart nvim' })

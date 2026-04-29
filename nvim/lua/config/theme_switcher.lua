@@ -22,6 +22,19 @@ local function lualine_refresh()
   pcall(vim.cmd, 'silent! LualineRefresh')
 end
 
+local function apply_highlight_overrides()
+  vim.api.nvim_set_hl(0, '@lsp.type.namespace.go', { link = 'Type' })
+
+  for _, group in ipairs {
+    '@lsp.typemod.variable.definition.go',
+    '@lsp.typemod.variable.string.go',
+    '@property.go',
+    '@variable.member.go',
+  } do
+    vim.api.nvim_set_hl(0, group, { fg = '#ffffff' })
+  end
+end
+
 function M.current_mode()
   local mode = vim.g.theme_mode
   if mode == 'light' or mode == 'dark' then
@@ -68,6 +81,7 @@ function M.apply(mode)
     return false
   end
 
+  apply_highlight_overrides()
   lualine_refresh()
   persist_mode(mode)
   return true

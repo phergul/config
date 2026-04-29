@@ -18,7 +18,7 @@ vim.opt.expandtab = false
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.o.mouse = 'a'
+vim.o.mouse = ''
 
 vim.o.showmode = false
 vim.schedule(function()
