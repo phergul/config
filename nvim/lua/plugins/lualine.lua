@@ -79,7 +79,7 @@ return {
       package.loaded['lualine.themes.auto'] = nil
       local auto_theme = require 'lualine.themes.auto'
       local normal_fg = first_hl_color({ 'Normal', 'NormalNC' }, 'fg')
-      local flat_bg = first_hl_color({ 'NormalFloat', 'NeoTreeNormal', 'NvimTreeNormal', 'Pmenu', 'StatusLine', 'Normal' }, 'bg')
+      local flat_bg = first_hl_color({ 'NormalFloat', 'NeoTreeNormal', 'NvimTreeNormal', 'StatusLine', 'Pmenu', 'PmenuSel', 'Normal' }, 'bg')
 
       local mode_fg = {}
       for _, mode in ipairs(modes) do
