@@ -1,0 +1,19 @@
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = true
+window-theme = system
+font-family = "JetBrainsMono Nerd Font"
+
+#theme = Catppuccin Macchiato
+#theme = Spacedust
+theme = Rose Pine
+
+cursor-color="#FFFFFF"
+cursor-style=block
+cursor-style-blink=true
+font-size = 12
+
+macos-icon = custom
+macos-option-as-alt = true
+macos-shortcuts=ask
+keybind = "alt+3=text:#"
