@@ -76,8 +76,8 @@ gaps.outer.top =        8
 gaps.outer.right =      8
 
 [workspace-to-monitor-force-assignment]
-5 = 2
-6 = 3
+2 = 2
+3 = 3
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
