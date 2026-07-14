@@ -3,10 +3,6 @@
 # Fallback value (if you omit the key): config-version = 1
 config-version = 2
 
-# You can use it to add commands that run after AeroSpace startup.
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
-
 # Start AeroSpace at login
 start-at-login = true
 
@@ -54,7 +50,7 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6"]
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 on-mode-changed = []
 
-focus-follows-mouse.enabled = true
+focus-follows-mouse.enabled = false
 
 # Possible values: (qwerty|dvorak|colemak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -72,12 +68,19 @@ gaps.inner.horizontal = 8
 gaps.inner.vertical =   8
 gaps.outer.left =       8
 gaps.outer.bottom =     8
-gaps.outer.top =        8
+gaps.outer.top =        [{ monitor."built-in" = 2 }, 34]
 gaps.outer.right =      8
 
-[workspace-to-monitor-force-assignment]
-2 = 2
-3 = 3
+after-startup-command = ['exec-and-forget sketchybar']
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$AEROSPACE_FOCUSED_WORKSPACE"'
+]
+
+# [workspace-to-monitor-force-assignment]
+# 2 = 2
+# 3 = 3
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -135,7 +138,7 @@ gaps.outer.right =      8
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
-    alt-e = 'workspace 3' # thank you macos
+    alt-3 = 'workspace 3'
     alt-4 = 'workspace 4'
     alt-5 = 'workspace 5'
     alt-6 = 'workspace 6'
