@@ -1,2 +1,4 @@
 *.wasm
 nvim.log
+.DS_Store
+.config/karabiner/automatic_backups
