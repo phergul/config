@@ -64,13 +64,13 @@ key-mapping.preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
-gaps.inner.horizontal = 8
-gaps.inner.vertical = 8
-gaps.outer.left = 8
-gaps.outer.bottom = 8
+# gaps.inner.horizontal = 8
+# gaps.inner.vertical = 8
+# gaps.outer.left = 8
+# gaps.outer.bottom = 8
 # gaps.outer.top = [{ monitor."built-in" = 0 }, 0]
-gaps.outer.top = 8
-gaps.outer.right = 8
+# gaps.outer.top = 8
+# gaps.outer.right = 8
 
 # [workspace-to-monitor-force-assignment]
 # 2 = 2
@@ -175,8 +175,3 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 #s = ['layout sticky tiling', 'mode main']
-
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']

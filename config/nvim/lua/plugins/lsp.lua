@@ -112,20 +112,37 @@ return {
           },
         },
       },
+
+      sourcekit = {
+        cmd = { 'xcrun', 'sourcekit-lsp' },
+        filetypes = { 'swift', 'objective-c', 'objective-cpp' },
+        root_markers = {
+          'buildServer.json',
+          '*.xcodeproj',
+          '*.xcworkspace',
+          '.git',
+        },
+      },
     }
-    local ensure_installed = vim.tbl_keys(servers)
-    vim.list_extend(ensure_installed, {
-      'stylua', -- Used to format Lua code
-    })
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+    local ensure_installed = {
+      'lua_ls',
+      'gopls',
+      'stylua',
+    }
+
+    require('mason-tool-installer').setup {
+      ensure_installed = ensure_installed,
+    }
 
     for server_name, server in pairs(servers) do
       server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
       vim.lsp.config(server_name, server)
+      vim.lsp.enable(server_name)
     end
 
     require('mason-lspconfig').setup {
-      ensure_installed = vim.tbl_keys(servers),
+      ensure_installed = { 'lua_ls', 'gopls' },
     }
   end,
 }

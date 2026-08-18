@@ -32,6 +32,7 @@ return {
       json = { 'prettier' },
       html = { 'prettier' },
       css = { 'prettier' },
+      swift = { 'swiftformat' },
     },
   },
 }
