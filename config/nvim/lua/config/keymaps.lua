@@ -37,3 +37,5 @@ end, {})
 vim.keymap.set('n', '<leader>hb', '<cmd>Git blame<cr>', { desc = 'Toggle git blame' })
 
 vim.keymap.set('n', '<leader>Re', '<cmd>restart<cr>', { desc = 'Restart nvim' })
+
+vim.keymap.set('x', '<leader>p', [[\"_dP]])

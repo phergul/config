@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+target=${1:?Home Manager did not provide a collision path}
+
+# This file is deliberately not managed by Home Manager, but fail closed if
+# a future configuration accidentally tries to manage it.
+if [ "$target" = "$HOME/.zshrc.local" ]; then
+  printf 'refusing to manage %s\n' "$target" >&2
+  exit 1
+fi
+
+extension=${HOME_MANAGER_BACKUP_EXT:-hm-backup}
+backup="$target.$extension"
+
+if [ -e "$backup" ] || [ -L "$backup" ]; then
+  printf 'backup already exists; refusing to overwrite %s\n' "$backup" >&2
+  exit 1
+fi
+
+# mv preserves a conflicting symlink as a symlink, rather than touching its
+# target. This also handles regular files and directories from the old setup.
+mv -- "$target" "$backup"
+printf 'moved %s -> %s\n' "$target" "$backup"

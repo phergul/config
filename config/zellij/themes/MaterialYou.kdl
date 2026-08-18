@@ -1,0 +1,16 @@
+themes {
+  MaterialYou {
+    fg "#e6e1e9"
+    bg "#141318"
+
+    black  "#0f0d13"
+    red    "#ffb4ab"
+    green  "#cbbeff"
+    yellow "#edb8cb"
+    blue   "#cbbeff"
+    magenta "#cac3dc"
+    cyan   "#edb8cb"
+    white  "#e6e1e9"
+    orange "#ffd9e5"
+  }
+}

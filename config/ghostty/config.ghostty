@@ -1,0 +1,68 @@
+# Shared Ghostty configuration.
+config-file = ?config.macos
+
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = true
+window-theme = system
+font-family = "JetBrainsMono Nerd Font"
+font-size = 11
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 0.82
+scrollback-limit = 100000
+mouse-hide-while-typing = true
+confirm-close-surface = false
+app-notifications = false
+unfocused-split-opacity = 0.7
+unfocused-split-fill = #44464f
+gtk-single-instance = true
+
+cursor-color = #FFFFFF
+cursor-style = block
+cursor-style-blink = true
+shell-integration = detect
+shell-integration-features = cursor,sudo,title,no-cursor
+
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+keybind = shift+enter=text:\n
+
+# keybind = alt+n=new_split:auto
+# keybind = alt+h=goto_split:left
+# keybind = alt+j=goto_split:down
+# keybind = alt+k=goto_split:up
+# keybind = alt+l=goto_split:right
+#
+# keybind = ctrl+p>h=goto_split:left
+# keybind = ctrl+p>j=goto_split:down
+# keybind = ctrl+p>k=goto_split:up
+# keybind = ctrl+p>l=goto_split:right
+# keybind = ctrl+p>n=new_split:auto
+# keybind = ctrl+p>d=new_split:down
+# keybind = ctrl+p>r=new_split:right
+# keybind = ctrl+p>x=close_surface
+# keybind = ctrl+p>f=toggle_split_zoom
+# keybind = ctrl+p>e=equalize_splits
+# keybind = ctrl+p>shift+h=resize_split:left,50
+# keybind = ctrl+p>shift+j=resize_split:down,50
+# keybind = ctrl+p>shift+k=resize_split:up,50
+# keybind = ctrl+p>shift+l=resize_split:right,50
+# keybind = ctrl+p>minus=resize_split:left,50
+# keybind = ctrl+p>equal=resize_split:right,50
+#
+# keybind = ctrl+t>n=new_tab
+# keybind = ctrl+t>h=previous_tab
+# keybind = ctrl+t>l=next_tab
+# keybind = ctrl+t>x=close_tab
+# keybind = ctrl+t>1=goto_tab:1
+# keybind = ctrl+t>2=goto_tab:2
+# keybind = ctrl+t>3=goto_tab:3
+# keybind = ctrl+t>4=goto_tab:4
+# keybind = ctrl+t>5=goto_tab:5
+# keybind = ctrl+t>6=goto_tab:6
+# keybind = ctrl+t>shift+h=move_tab:-1
+# keybind = ctrl+t>shift+l=move_tab:1
+
+theme = dankcolors

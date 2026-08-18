@@ -1,0 +1,6 @@
+# macOS-only Ghostty settings.
+macos-titlebar-style = tabs
+macos-icon = custom
+macos-option-as-alt = true
+macos-shortcuts = ask
+keybind = alt+3=text:#
