@@ -20,7 +20,13 @@
   outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, zjstatus, ... }:
     let
       lib = nixpkgs.lib;
-      userName = let value = builtins.getEnv "USER"; in if value == "" then "fergal" else value;
+      userName = let
+        sudoUser = builtins.getEnv "SUDO_USER";
+        currentUser = builtins.getEnv "USER";
+      in
+        if sudoUser != "" && sudoUser != "root" then sudoUser
+        else if currentUser != "" && currentUser != "root" then currentUser
+        else "fergal";
       homeDirectory = system:
         if builtins.match ".*-darwin" system != null
         then "/Users/${userName}"
@@ -56,11 +62,19 @@
           ./hosts/macos.nix
           home-manager.darwinModules.home-manager
           {
+            system.primaryUser = userName;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hm-backup";
             home-manager.backupCommand = "${self}/scripts/home-manager-backup";
-            home-manager.users.${userName} = homeModule system // {
+            home-manager.users.${userName} = {
+              home.username = userName;
+              home.homeDirectory = lib.mkForce "/Users/${userName}";
+              home.stateVersion = "24.11";
+              home.sessionVariables = {
+                EDITOR = "nvim";
+                VISUAL = "nvim";
+              };
               imports = [ ./home ./home/macos.nix ];
             };
             home-manager.extraSpecialArgs = { inherit self zjstatus; };

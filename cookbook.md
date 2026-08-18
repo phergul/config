@@ -12,8 +12,12 @@ nix run home-manager -- switch --flake .#linux --impure \
 
 macOS:
 
+Use the feature flags on the first switch so Nix can bootstrap nix-darwin;
+they are declared permanently in `darwin/default.nix`.
+
 ```sh
-sudo nix run nix-darwin -- switch --flake .#macos --impure
+sudo nix --extra-experimental-features "nix-command flakes" \
+  run nix-darwin -- switch --flake .#macos --impure
 ```
 
 ## Continuous rebuilds

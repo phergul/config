@@ -16,6 +16,7 @@ in
   xdg.configFile = {
     "ghostty/config".source = ../config/ghostty/config.ghostty;
     "ghostty/themes".source = ../config/ghostty/themes;
+    "starship.toml".source = ../config/starship.toml;
     "zellij/config.kdl".source = ../config/zellij/config.kdl;
     "zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
     # Keep Zellij's configured layout name stable while selecting the
