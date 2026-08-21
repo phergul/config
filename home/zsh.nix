@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -35,6 +35,12 @@
     };
 
     initContent = ''
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        if [ -x /opt/homebrew/bin/brew ]; then
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
+      ''}
+
       if [ -d "$HOME/scripts" ]; then
         for file in "$HOME/scripts"/*.sh; do
           [ -r "$file" ] && source "$file"
@@ -45,7 +51,12 @@
     '';
   };
 
-  home.sessionPath = [
+  home.sessionPath = lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+    "/usr/local/bin"
+    "/usr/local/sbin"
+  ] ++ [
     "${config.home.homeDirectory}/.nix-profile/bin"
     "${config.home.homeDirectory}/bin"
     "${config.home.homeDirectory}/go/bin"

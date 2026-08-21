@@ -106,6 +106,10 @@ key-mapping.preset = 'qwerty'
 
 # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
 
+# Open new application windows globally
+ctrl-alt-cmd-enter = 'exec-and-forget open -na Ghostty'
+ctrl-alt-cmd-b = 'exec-and-forget open -na "Brave Browser"'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # You can uncomment the following lines to open up terminal with alt + enter shortcut
 # (like in i3)
