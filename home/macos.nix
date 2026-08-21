@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   xdg.configFile."ghostty/config.macos".source = ../config/ghostty/config.macos;
   xdg.configFile."aerospace".source = ../config/aerospace;
