@@ -16,7 +16,6 @@ in
   xdg.configFile = {
     "ghostty/config".source = ../config/ghostty/config.ghostty;
     "ghostty/themes".source = ../config/ghostty/themes;
-    "starship.toml".source = ../config/starship.toml;
     "zellij/config.kdl".source = ../config/zellij/config.kdl;
     "zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
     # Keep Zellij's configured layout name stable while selecting the
@@ -28,8 +27,9 @@ in
     "zellij/themes".source = ../config/zellij/themes;
   };
 
-  # The old setup linked whole config directories. Move those legacy links out
-  # of the way before Home Manager checks individual managed files.
+  # The old setup linked whole config directories. Remove generated store links
+  # and move other legacy links out of the way before Home Manager checks
+  # individual managed files.
   home.activation.migrateLegacyConfigLinks = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
     for target in \
       "$HOME/.config/nvim" \
@@ -39,11 +39,9 @@ in
         link_target=$(readlink "$target")
         case "$link_target" in
           /nix/store/*)
-            # Older generations managed Ghostty as one directory symlink;
-            # remove only that generated link before switching to file links.
-            if [ "$target" = "$HOME/.config/ghostty" ]; then
-              rm -- "$target"
-            fi
+            # Older generations managed these directories as one symlink;
+            # remove the generated link before switching to file links.
+            rm -- "$target"
             ;;
           *) ${../scripts/home-manager-backup} "$target" ;;
         esac

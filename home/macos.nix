@@ -3,6 +3,7 @@
   xdg.configFile."ghostty/config.macos".source = ../config/ghostty/config.macos;
   xdg.configFile."aerospace".source = ../config/aerospace;
   xdg.configFile."karabiner".source = ../config/karabiner;
+  xdg.configFile."starship.toml".source = ../config/starship.toml;
 
   home.activation.migrateLegacyMacConfigLinks = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
     for target in "$HOME/.config/aerospace" "$HOME/.config/karabiner"; do

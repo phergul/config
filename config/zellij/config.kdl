@@ -466,7 +466,7 @@ default_layout "default"
 //   - true (default, enabled)
 //   - false
 // 
-pane_frames true
+pane_frames false
 
 
 // When attaching to an existing session with other users,
