@@ -7,7 +7,6 @@ in
     ./packages.nix
     ./zsh.nix
     ./nvim.nix
-    ./git.nix
     ./terminal.nix
   ];
 
