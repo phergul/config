@@ -15,8 +15,8 @@ in
   xdg.configFile = {
     "ghostty/config".source = ../config/ghostty/config.ghostty;
     "ghostty/themes".source = ../config/ghostty/themes;
+    "zsh/common.zsh".source = ../config/zsh/common.zsh;
     "zellij/config.kdl".source = ../config/zellij/config.kdl;
-    "zellij/plugins/zjstatus.wasm".source = "${zjstatusPackage}/bin/zjstatus.wasm";
     # Keep Zellij's configured layout name stable while selecting the
     # platform-specific colour scheme at build time.
     "zellij/layouts/default.kdl".source =
@@ -25,6 +25,9 @@ in
       else ../config/zellij/layouts/default.kdl;
     "zellij/themes".source = ../config/zellij/themes;
   };
+
+  home.file.".local/share/zellij/plugins/zjstatus.wasm".source =
+    "${zjstatusPackage}/bin/zjstatus.wasm";
 
   # The old setup linked whole config directories. Remove generated store links
   # and move other legacy links out of the way before Home Manager checks

@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$(uname -s)" != "Darwin" ]; then
+  printf 'link-macos only supports macOS\n' >&2
+  exit 1
+fi
+
+repo_root=$(cd -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+backup_stamp=$(date '+%Y%m%d-%H%M%S')
+
+backup_path() {
+  local target=$1
+  local backup="${target}.config-backup-${backup_stamp}"
+  local suffix=1
+
+  while [ -e "$backup" ] || [ -L "$backup" ]; do
+    backup="${target}.config-backup-${backup_stamp}-${suffix}"
+    suffix=$((suffix + 1))
+  done
+
+  mv "$target" "$backup"
+  printf 'backed up %s -> %s\n' "$target" "$backup"
+}
+
+ensure_directory() {
+  local target=$1
+
+  if [ -L "$target" ] || { [ -e "$target" ] && [ ! -d "$target" ]; }; then
+    backup_path "$target"
+  fi
+
+  mkdir -p "$target"
+}
+
+link_path() {
+  local source=$1
+  local target=$2
+
+  if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
+    printf 'already linked %s\n' "$target"
+    return
+  fi
+
+  if [ -e "$target" ] || [ -L "$target" ]; then
+    backup_path "$target"
+  fi
+
+  mkdir -p "$(dirname "$target")"
+  ln -s "$source" "$target"
+  printf 'linked %s -> %s\n' "$target" "$source"
+}
+
+ensure_directory "$HOME/.config"
+ensure_directory "$HOME/.config/ghostty"
+ensure_directory "$HOME/.config/zellij"
+ensure_directory "$HOME/.config/zellij/layouts"
+ensure_directory "$HOME/.config/zsh"
+
+link_path "$repo_root/config/nvim" "$HOME/.config/nvim"
+link_path "$repo_root/config/ghostty/config.ghostty" "$HOME/.config/ghostty/config"
+link_path "$repo_root/config/ghostty/config.macos" "$HOME/.config/ghostty/config.macos"
+link_path "$repo_root/config/ghostty/themes" "$HOME/.config/ghostty/themes"
+link_path "$repo_root/config/ghostty/Ghostty.icns" "$HOME/.config/ghostty/Ghostty.icns"
+link_path "$repo_root/config/zellij/config.kdl" "$HOME/.config/zellij/config.kdl"
+link_path "$repo_root/config/zellij/layouts/macos.kdl" "$HOME/.config/zellij/layouts/default.kdl"
+link_path "$repo_root/config/zellij/themes" "$HOME/.config/zellij/themes"
+link_path "$repo_root/config/starship.toml" "$HOME/.config/starship.toml"
+link_path "$repo_root/config/aerospace" "$HOME/.config/aerospace"
+link_path "$repo_root/config/karabiner" "$HOME/.config/karabiner"
+link_path "$repo_root/config/zsh/common.zsh" "$HOME/.config/zsh/common.zsh"
+link_path "$repo_root/config/zsh/zshrc" "$HOME/.zshrc"
+
+if [ ! -e "$HOME/.zshrc.local" ] && [ ! -L "$HOME/.zshrc.local" ]; then
+  install -m 600 /dev/null "$HOME/.zshrc.local"
+  printf 'created %s\n' "$HOME/.zshrc.local"
+fi

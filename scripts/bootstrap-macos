@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$(uname -s)" != "Darwin" ]; then
+  printf 'bootstrap-macos only supports macOS\n' >&2
+  exit 1
+fi
+
+repo_root=$(cd -- "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+temp_dir=$(mktemp -d "${TMPDIR:-/tmp}/config-bootstrap.XXXXXX")
+trap 'rm -rf "$temp_dir"' EXIT
+
+if ! command -v brew >/dev/null 2>&1; then
+  printf 'Homebrew is not installed; downloading the official installer\n'
+  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh \
+    -o "$temp_dir/install-homebrew.sh"
+  NONINTERACTIVE=1 /bin/bash "$temp_dir/install-homebrew.sh"
+
+  if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  printf 'Homebrew installation completed but brew is not available on PATH\n' >&2
+  exit 1
+fi
+
+brew bundle --file "$repo_root/Brewfile" --no-upgrade
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  printf 'installing Oh My Zsh\n'
+  curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
+    -o "$temp_dir/install-oh-my-zsh.sh"
+  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+    /bin/sh "$temp_dir/install-oh-my-zsh.sh" --unattended --keep-zshrc
+else
+  printf 'Oh My Zsh is already installed\n'
+fi
+
+plugin_dir="$HOME/.local/share/zellij/plugins"
+mkdir -p "$plugin_dir"
+curl -fsSL https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm \
+  -o "$temp_dir/zjstatus.wasm"
+install -m 644 "$temp_dir/zjstatus.wasm" "$plugin_dir/zjstatus.wasm"
+printf 'installed zjstatus at %s\n' "$plugin_dir/zjstatus.wasm"
+
+"$repo_root/scripts/link-macos"
+
+printf '\nBootstrap complete. Open a new terminal, or run: exec zsh\n'
