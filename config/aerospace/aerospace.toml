@@ -107,7 +107,18 @@ key-mapping.preset = 'qwerty'
 # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
 
 # Open new application windows globally
-ctrl-alt-cmd-enter = '''exec-and-forget osascript -e 'tell application "Ghostty" to make new window' '''
+ctrl-alt-cmd-enter = '''exec-and-forget osascript -e '
+set termName to "Ghostty"
+tell application termName
+    if it is running then
+        tell application "System Events" to tell process termName
+            click menu item "New Window" of menu "File" of menu bar 1
+        end tell
+    else
+        activate
+    end if
+end tell
+' '''
 ctrl-alt-cmd-b = 'exec-and-forget open -na "Brave Browser"'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget

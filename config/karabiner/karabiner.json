@@ -5,17 +5,21 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Type # with Fn (Globe)+3",
+                        "description": "Type # with Control+Shift+3",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "3",
-                                    "modifiers": { "mandatory": ["fn"] }
+                                    "modifiers": { "mandatory": ["left_control", "left_shift"] }
                                 },
                                 "to": [
                                     {
-                                        "key_code": "3",
-                                        "modifiers": ["left_option"]
+                                        "shell_command": "/bin/echo -n '#' | /usr/bin/pbcopy"
+                                    },
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["left_command"],
+                                        "hold_down_milliseconds": 200
                                     }
                                 ],
                                 "type": "basic"

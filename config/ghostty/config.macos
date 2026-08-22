@@ -2,6 +2,9 @@
 macos-icon = custom
 macos-option-as-alt = true
 macos-shortcuts = ask
-keybind = alt+3=text:#
 
 background-opacity = 1
+# background-blur = macos-glass-regular
+
+macos-titlebar-style = hidden
+macos-titlebar-proxy-icon = hidden
