@@ -1,50 +1,51 @@
 return {
-  {
-    'folke/sidekick.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'saghen/blink.cmp',
-      'williamboman/mason.nvim',
-    },
-    opts = {
-      nes = {
-        enabled = true,
-        debounce = 300,
-      },
-    },
-    keys = {
-      {
-        '<leader>cc',
-        function()
-          local nes = require 'sidekick.nes'
-          nes.toggle()
-          if nes.enabled then
-            vim.notify('Sidekick NES: ON', vim.log.levels.INFO)
-          else
-            vim.notify('Sidekick NES: OFF', vim.log.levels.INFO)
-          end
-        end,
-        mode = { 'n', 'v' },
-        desc = 'Toggle Sidekick NES',
-      },
-      {
-        '§',
-        function()
-          if require('sidekick').nes_jump_or_apply() then
-            return
-          end
-        end,
-        mode = { 'n', 'v' },
-        desc = 'Apply Copilot Suggestion',
-      },
-    },
-  },
-
+  -- {
+  --   'folke/sidekick.nvim',
+  --   event = 'VeryLazy',
+  --   dependencies = {
+  --     'saghen/blink.cmp',
+  --     'williamboman/mason.nvim',
+  --   },
+  --   opts = {
+  --     nes = {
+  --       enabled = true,
+  --       debounce = 300,
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       '<leader>cc',
+  --       function()
+  --         local nes = require 'sidekick.nes'
+  --         nes.toggle()
+  --         if nes.enabled then
+  --           vim.notify('Sidekick NES: ON', vim.log.levels.INFO)
+  --         else
+  --           vim.notify('Sidekick NES: OFF', vim.log.levels.INFO)
+  --         end
+  --       end,
+  --       mode = { 'n', 'v' },
+  --       desc = 'Toggle Sidekick NES',
+  --     },
+  --     {
+  --       '§',
+  --       function()
+  --         if require('sidekick').nes_jump_or_apply() then
+  --           return
+  --         end
+  --       end,
+  --       mode = { 'n', 'v' },
+  --       desc = 'Apply Copilot Suggestion',
+  --     },
+  --   },
+  -- },
+  --
   {
     'saghen/blink.cmp',
     dependencies = {
       'rafamadriz/friendly-snippets',
-      'giuxtaposition/blink-cmp-copilot',
+      -- 'giuxtaposition/blink-cmp-copilot',
+      'xzbdmw/colorful-menu.nvim',
     },
     version = '*',
 
@@ -64,15 +65,15 @@ return {
         },
 
         sources = {
-          default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
+          default = { 'lsp', 'path', 'snippets', 'buffer' },
 
           providers = {
-            copilot = {
-              name = 'copilot',
-              module = 'blink-cmp-copilot',
-              score_offset = 100,
-              async = true,
-            },
+            -- copilot = {
+            --   name = 'copilot',
+            --   module = 'blink-cmp-copilot',
+            --   score_offset = 100,
+            --   async = true,
+            -- },
           },
         },
 
@@ -89,7 +90,17 @@ return {
               columns = {
                 { 'kind_icon' },
                 { 'label', 'label_description', gap = 1 },
-                { 'source_name' },
+                -- { 'source_name' },
+              },
+              components = {
+                label = {
+                  text = function(ctx)
+                    return require('colorful-menu').blink_components_text(ctx)
+                  end,
+                  highlight = function(ctx)
+                    return require('colorful-menu').blink_components_highlight(ctx)
+                  end,
+                },
               },
             },
           },
@@ -111,21 +122,21 @@ return {
     end,
   },
 
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-      server_opts_overrides = {
-        settings = {
-          advanced = {
-            listCount = 10,
-            inlineSuggestCount = 3,
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   'zbirenbaum/copilot.lua',
+  --   cmd = 'Copilot',
+  --   event = 'InsertEnter',
+  --   opts = {
+  --     suggestion = { enabled = false },
+  --     panel = { enabled = false },
+  --     server_opts_overrides = {
+  --       settings = {
+  --         advanced = {
+  --           listCount = 10,
+  --           inlineSuggestCount = 3,
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 }
