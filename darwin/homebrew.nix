@@ -14,6 +14,7 @@
       "linearmouse"
       "middleclick"
       "raycast"
+	  "vorssaint"
     ];
   };
 

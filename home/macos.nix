@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   xdg.configFile."ghostty/config.macos".source = ../config/ghostty/config.macos;
+  xdg.configFile."ghostty/Ghostty.icns".source = ../config/ghostty/Ghostty.icns;
   xdg.configFile."aerospace".source = ../config/aerospace;
   xdg.configFile."karabiner".source = ../config/karabiner;
   xdg.configFile."starship.toml".source = ../config/starship.toml;

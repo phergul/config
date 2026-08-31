@@ -12,6 +12,9 @@ local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
 require('lazy').setup {
+  -- This config is deployed by Home Manager as a read-only Nix-store symlink.
+  -- Keep lazy.nvim's generated lockfile in Neovim's writable data directory.
+  lockfile = vim.fn.stdpath 'data' .. '/lazy-lock.json',
   spec = {
     { import = 'plugins' },
   },

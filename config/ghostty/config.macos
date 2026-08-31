@@ -1,5 +1,6 @@
 # macOS-only Ghostty settings.
 macos-icon = custom
+macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 macos-option-as-alt = true
 macos-shortcuts = ask
 
