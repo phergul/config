@@ -21,9 +21,9 @@ vim.o.relativenumber = true
 vim.o.mouse = ''
 
 vim.o.showmode = false
--- vim.schedule(function()
---   vim.o.clipboard = 'unnamedplus'
--- end)
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
 
 vim.o.breakindent = false
 
@@ -47,3 +47,5 @@ vim.o.cursorline = true
 vim.o.scrolloff = 10
 
 vim.o.confirm = true
+
+require('vim._core.ui2').enable {}

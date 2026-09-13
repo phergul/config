@@ -11,10 +11,10 @@ vim.keymap.set('n', '<C-k>', '<C-w>k')
 vim.keymap.set('n', '<C-l>', '<C-w>l')
 
 vim.keymap.set('x', '<leader>p', [["_dP]])
-vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
-vim.keymap.set('n', '<leader>Y', [["+Y]])
+-- vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+-- vim.keymap.set('n', '<leader>Y', [["+Y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>d', '"_d')
-vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+p')
+-- vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+p')
 
 -- vim.keymap.set('n', '<D-h>', '<C-w>h', opts)
 -- vim.keymap.set('n', '<D-j>', '<C-w>j', opts)

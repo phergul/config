@@ -48,6 +48,21 @@
       fi
 
       [[ -r "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+
+      nix-update() {
+        local config_dir="${config.home.homeDirectory}/dev/config"
+
+        cd "$config_dir" || return
+        nix flake update || return
+
+        if [[ "$(uname -s)" == "Darwin" ]]; then
+          sudo darwin-rebuild switch --flake .#macos --impure || return
+        else
+          nix run home-manager -- switch --flake .#linux --impure || return
+        fi
+
+        exec zsh
+      }
     '';
   };
 
