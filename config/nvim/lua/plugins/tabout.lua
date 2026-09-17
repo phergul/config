@@ -1,0 +1,32 @@
+return {
+  -- {
+  --   'abecodes/tabout.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('tabout').setup {
+  --       completion = true,
+  --       tabouts = {
+  --         { open = "'", close = "'" },
+  --         { open = '"', close = '"' },
+  --         { open = '`', close = '`' },
+  --         { open = '(', close = ')' },
+  --         { open = '[', close = ']' },
+  --         { open = '{', close = '}' },
+  --       },
+  --       ignore_beginning = true,
+  --     }
+  --   end,
+  --   dependencies = { -- These are optional
+  --     'nvim-treesitter/nvim-treesitter',
+  --     'L3MON4D3/LuaSnip',
+  --   },
+  --   priority = 1000,
+  -- },
+  -- {
+  --   'L3MON4D3/LuaSnip',
+  --   keys = function()
+  --     -- Disable default tab keybinding in LuaSnip
+  --     return {}
+  --   end,
+  -- },
+}

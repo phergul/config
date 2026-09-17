@@ -29,7 +29,7 @@ return {
     }
 
     pcall(require('telescope').load_extension, 'fzf')
-    require('custom_telescope_pickers.git_changes').setup()
+    -- require('custom_telescope_pickers.git_changes').setup()
 
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -44,7 +44,8 @@ return {
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
     vim.keymap.set('n', '<leader>ss', function()
-      require('custom_telescope_pickers.git_changes').git_changes()
+      builtin.git_status()
+      -- require('custom_telescope_pickers.git_changes').git_changes()
     end, { desc = 'Git changes picker' })
 
     vim.keymap.set('n', '<leader>/', function()

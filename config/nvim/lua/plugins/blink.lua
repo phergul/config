@@ -56,22 +56,11 @@ return {
 
       return {
         keymap = {
-          preset = 'none',
           ['<Tab>'] = {
             'select_next',
-            'snippet_forward',
-            function()
-              require('neotab').tabout()
-              return true
-            end,
           },
           ['<S-Tab>'] = {
             'select_prev',
-            'snippet_backward',
-            function()
-              require('neotab').tabreverse()
-              return true
-            end,
           },
           ['<CR>'] = { 'accept', 'fallback' },
           ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },

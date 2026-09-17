@@ -33,7 +33,7 @@ return {
       options = {
         mode = 'buffers',
         numbers = 'none',
-        themable = true,
+        themable = false,
         diagnostics = 'nvim_lsp',
         separator_style = 'thin', -- "slant" | "slope" | "thick" | "thin"
         show_buffer_close_icons = false,
