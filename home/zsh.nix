@@ -16,6 +16,7 @@
       zshsharedcfg = "nvim ~/.zshrc";
       zshcfg = "nvim ~/.zshrc.local";
       vim = "nvim";
+	  n = "nvim";
       cd = "z";
       ls = "eza";
       lst = "eza -T -L 1";

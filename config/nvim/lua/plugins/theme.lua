@@ -23,6 +23,7 @@ return {
     priority = 1000,
     config = function()
       require('rose-pine').setup {
+        variant = 'moon',
         styles = {
           transparency = true,
         },

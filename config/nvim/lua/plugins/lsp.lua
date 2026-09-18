@@ -10,10 +10,6 @@ return {
     'saghen/blink.cmp',
   },
   config = function()
-    local icons = require 'config.icons'
-    local ui = require 'config.ui'
-    local border = ui.get_border()
-
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
       callback = function(event)

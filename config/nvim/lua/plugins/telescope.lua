@@ -17,7 +17,6 @@ return {
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
-    require('telescope').load_extension 'ui-select'
     local icons = require 'config.icons'
 
     local border_style = require('config.ui').get_border()
@@ -26,7 +25,27 @@ return {
         border = border_style ~= 'none',
         borderchars = icons.borders[border_style],
       },
+      extensions = {
+        ['ui-select'] = require('telescope.themes').get_dropdown {
+          width = 0.55,
+          height = 0.35,
+          previewer = false,
+          prompt_title = false,
+          results_title = false,
+
+          layout_config = {
+            prompt_position = 'bottom',
+          },
+
+          borderchars = {
+            prompt = icons.borders[border_style],
+            results = icons.borders[border_style],
+            preview = icons.borders[border_style],
+          },
+        },
+      },
     }
+    require('telescope').load_extension 'ui-select'
 
     pcall(require('telescope').load_extension, 'fzf')
     -- require('custom_telescope_pickers.git_changes').setup()

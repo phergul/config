@@ -1,32 +1,13 @@
 return {
-  -- {
-  --   'abecodes/tabout.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('tabout').setup {
-  --       completion = true,
-  --       tabouts = {
-  --         { open = "'", close = "'" },
-  --         { open = '"', close = '"' },
-  --         { open = '`', close = '`' },
-  --         { open = '(', close = ')' },
-  --         { open = '[', close = ']' },
-  --         { open = '{', close = '}' },
-  --       },
-  --       ignore_beginning = true,
-  --     }
-  --   end,
-  --   dependencies = { -- These are optional
-  --     'nvim-treesitter/nvim-treesitter',
-  --     'L3MON4D3/LuaSnip',
-  --   },
-  --   priority = 1000,
-  -- },
-  -- {
-  --   'L3MON4D3/LuaSnip',
-  --   keys = function()
-  --     -- Disable default tab keybinding in LuaSnip
-  --     return {}
-  --   end,
-  -- },
+  'abecodes/tabout.nvim',
+  event = 'InsertEnter',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  opts = {
+    tabkey = '<Tab>',
+    backwards_tabkey = '<S-Tab>',
+    act_as_tab = true, -- If not inside pairs, act as a real indentation tab
+    enable_backwards = true,
+    completion = false, -- Let blink handle the key mapping routing
+    ignore_beginning = true,
+  },
 }

@@ -28,7 +28,7 @@ return {
         desc = 'Toggle Sidekick NES',
       },
       {
-        '`',
+        '§',
         function()
           if require('sidekick').nes_jump_or_apply() then
             return
@@ -57,10 +57,24 @@ return {
       return {
         keymap = {
           ['<Tab>'] = {
-            'select_next',
+            function(cmp)
+              if cmp.is_visible() then
+                return cmp.select_next()
+              elseif cmp.snippet_active() then
+                return cmp.snippet_forward()
+              end
+            end,
+            'fallback',
           },
           ['<S-Tab>'] = {
-            'select_prev',
+            function(cmp)
+              if cmp.is_visible() then
+                return cmp.select_prev()
+              elseif cmp.snippet_active() then
+                return cmp.snippet_backward()
+              end
+            end,
+            'fallback',
           },
           ['<CR>'] = { 'accept', 'fallback' },
           ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
