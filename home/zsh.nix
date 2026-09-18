@@ -17,6 +17,7 @@
       zshcfg = "nvim ~/.zshrc.local";
       vim = "nvim";
 	  n = "nvim";
+	  lg = "lazygit";
       cd = "z";
       ls = "eza";
       lst = "eza -T -L 1";

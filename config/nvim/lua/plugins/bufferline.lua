@@ -4,27 +4,13 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
     local function delete_current_buffer()
-      local current = vim.api.nvim_get_current_buf()
-
-      if vim.bo[current].filetype == 'neo-tree' then
+      if vim.bo.filetype == 'neo-tree' then
         return
       end
 
-      local replacement = nil
-      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if buf ~= current and vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted then
-          replacement = buf
-          break
-        end
-      end
-
-      if replacement then
-        vim.api.nvim_set_current_buf(replacement)
-      else
-        vim.cmd.enew()
-      end
-
-      vim.api.nvim_buf_delete(current, {})
+      -- Let Neovim choose the alternate/next buffer and handle modified
+      -- buffers correctly. This also works for deleted or unnamed files.
+      vim.cmd.bdelete()
     end
 
     vim.opt.termguicolors = true
@@ -34,6 +20,10 @@ return {
         mode = 'buffers',
         numbers = 'none',
         themable = false,
+        -- BufferLineCloseOthers and mouse actions use this command too.
+        -- Avoid bdelete! so unsaved changes are never discarded silently.
+        close_command = 'bdelete %d',
+        right_mouse_command = 'bdelete %d',
         diagnostics = 'nvim_lsp',
         separator_style = 'thin', -- "slant" | "slope" | "thick" | "thin"
         show_buffer_close_icons = false,
@@ -58,6 +48,6 @@ return {
     vim.keymap.set('n', '<leader>bb', '<Cmd>BufferLinePick<CR>')
 
     vim.keymap.set('n', '<leader>bd', delete_current_buffer, { desc = 'Delete current buffer' })
-    vim.keymap.set('n', '<leader>bD', '<Cmd>BufferLineCloseOthers<CR>')
+    vim.keymap.set('n', '<leader>bD', '<Cmd>BufferLineCloseOthers<CR>', { desc = 'Delete other buffers' })
   end,
 }
