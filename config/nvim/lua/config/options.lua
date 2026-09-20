@@ -49,3 +49,4 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 require('vim._core.ui2').enable {}
+vim.o.cmdheight = 0

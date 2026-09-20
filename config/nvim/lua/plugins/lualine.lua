@@ -110,6 +110,14 @@ return {
         end
       end
 
+      local function macro_recording()
+        local reg = vim.fn.reg_recording()
+        if reg == '' then
+          return ''
+        end
+        return 'Recording @' .. reg
+      end
+
       require('lualine').setup {
         options = {
           theme = flat_theme,
@@ -142,7 +150,12 @@ return {
             },
             'filename',
           },
-          lualine_c = {},
+          lualine_c = {
+            {
+              macro_recording,
+              color = accent_color { gui = 'bold' },
+            },
+          },
           lualine_x = {},
           lualine_y = { 'filetype', 'fileformat', 'progress' },
           lualine_z = {
