@@ -1,0 +1,2 @@
+# One AUR package per line. The current inventory is available in official repos.
+# Nonempty lists require an already installed yay (preferred) or paru.

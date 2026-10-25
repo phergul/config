@@ -1,0 +1,112 @@
+#!/bin/bash
+set -euo pipefail
+
+root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
+. "$root/scripts/platform.sh"
+action=${1:-}
+case "$action" in install|uninstall) ;; *) printf 'Usage: %s install|uninstall\n' "$0" >&2; exit 1 ;; esac
+detect_platform
+
+case "${HOME:-}" in /*) ;; *) printf 'HOME must be an absolute path\n' >&2; exit 1 ;; esac
+home=$(cd -- "$HOME" && pwd -P)
+config_home=${XDG_CONFIG_HOME:-$home/.config}
+config_home=${config_home%/}
+case "$config_home" in /*) ;; *) printf 'XDG_CONFIG_HOME must be an absolute path\n' >&2; exit 1 ;; esac
+# Reject ambiguous traversal so ownership checks use the same path as filesystem calls.
+case "$config_home/" in */../*|*/./*|*//*|/) printf 'Use a normalized XDG_CONFIG_HOME path\n' >&2; exit 1 ;; esac
+
+backup() {
+    local target=$1 candidate=$1.dotfiles-backup index=0
+    while [ -e "$candidate" ] || [ -L "$candidate" ]; do
+        index=$((index + 1))
+        candidate=$target.dotfiles-backup.$index
+    done
+    mv -- "$target" "$candidate"
+    printf 'Backed up %s -> %s\n' "$target" "$candidate"
+}
+
+managed_parent() {
+    case "$1" in
+        "$home"/*|"$config_home"|"$config_home"/*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+system_alias() {
+    case "$1" in /tmp|/var|/etc) return 0 ;; *) return 1 ;; esac
+}
+
+ensure_dir() {
+    local dir=$1
+    [ "$dir" != / ] && [ "$dir" != "$home" ] || return 0
+    ensure_dir "$(dirname -- "$dir")"
+    if [ -L "$dir" ] && ! managed_parent "$dir"; then
+        # Trust OS aliases, but do not traverse arbitrary symlinks outside our roots.
+        if ! system_alias "$dir" || [ ! -d "$dir" ]; then
+            printf 'Symlink outside managed roots: %s; use a physical XDG_CONFIG_HOME path.\n' "$dir" >&2
+            return 1
+        fi
+        return 0
+    fi
+    if [ -L "$dir" ] || { [ -e "$dir" ] && [ ! -d "$dir" ]; }; then
+        backup "$dir"
+    fi
+    [ -d "$dir" ] || mkdir -- "$dir"
+}
+
+safe_parents() {
+    local dir
+    dir=$(dirname -- "$1")
+    while [ "$dir" != / ] && [ "$dir" != "$home" ]; do
+        if [ -L "$dir" ]; then
+            if managed_parent "$dir" || ! system_alias "$dir"; then return 1; fi
+        fi
+        dir=$(dirname -- "$dir")
+    done
+}
+
+link() {
+    local source=$root/config/$1 target=$2
+    if [ "$action" = install ]; then
+        ensure_dir "$(dirname -- "$target")"
+        if [ -L "$target" ] && [ "$(readlink -- "$target")" = "$source" ]; then
+            return 0
+        fi
+        if [ -e "$target" ] || [ -L "$target" ]; then backup "$target"; fi
+        ln -s -- "$source" "$target"
+        printf 'Linked %s -> %s\n' "$target" "$source"
+    elif safe_parents "$target" && [ -L "$target" ] && [ "$(readlink -- "$target")" = "$source" ]; then
+        rm -- "$target"
+        printf 'Removed %s\n' "$target"
+    fi
+}
+
+link zsh/.zshenv "$home/.zshenv"
+link zsh/.zprofile "$home/.zprofile"
+link zsh/.zshrc "$home/.zshrc"
+link nvim "$config_home/nvim"
+link starship.toml "$config_home/starship.toml"
+link ghostty/config.ghostty "$config_home/ghostty/config"
+link ghostty/themes "$config_home/ghostty/themes"
+link zellij/config.kdl "$config_home/zellij/config.kdl"
+link zellij/themes "$config_home/zellij/themes"
+# These assets use stable HOME paths in the plain app configs, independent of XDG_CONFIG_HOME.
+link zellij/plugins/zjstatus.wasm "$home/.local/share/zellij/plugins/zjstatus.wasm"
+if [ "$platform" = macos ]; then
+    link zellij/layouts/macos.kdl "$config_home/zellij/layouts/default.kdl"
+    link ghostty/config.macos "$config_home/ghostty/config.macos"
+    link ghostty/Ghostty.icns "$home/.local/share/ghostty/Ghostty.icns"
+    link aerospace "$config_home/aerospace"
+    link karabiner "$config_home/karabiner"
+else
+    link zellij/layouts/default.kdl "$config_home/zellij/layouts/default.kdl"
+fi
+
+if [ "$action" = install ]; then
+    if [ ! -e "$home/.zshrc.local" ] && [ ! -L "$home/.zshrc.local" ]; then
+        (umask 077; set -C; : > "$home/.zshrc.local")
+    fi
+    if [ ! -f "$root/config/zellij/plugins/zjstatus.wasm" ]; then
+        printf 'zjstatus is not downloaded yet; run make packages before starting Zellij.\n'
+    fi
+fi

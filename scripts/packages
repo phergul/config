@@ -1,0 +1,91 @@
+#!/bin/bash
+set -euo pipefail
+set -f
+
+root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
+. "$root/scripts/platform.sh"
+detect_platform
+case "${HOME:-}" in /*) ;; *) printf 'HOME must be an absolute path\n' >&2; exit 1 ;; esac
+
+require() {
+    command -v "$1" >/dev/null 2>&1 || { printf 'Required command missing: %s\n' "$1" >&2; exit 1; }
+}
+
+read_packages() {
+    # Each manifest has one package per line; blank lines and comments are allowed.
+    local line
+    package_list=()
+    while IFS= read -r line || [ -n "$line" ]; do
+        line=${line%%#*}
+        for package in $line; do package_list+=("$package"); done
+    done < "$1"
+}
+
+if [ "$platform" = macos ]; then
+    if ! command -v brew >/dev/null 2>&1; then
+        for prefix in /opt/homebrew /usr/local; do
+            if [ -x "$prefix/bin/brew" ]; then
+                eval "$("$prefix/bin/brew" shellenv)"
+                break
+            fi
+        done
+    fi
+    require brew
+    brew bundle --file="$root/packages/Brewfile"
+else
+    require pacman
+    read_packages "$root/packages/arch-aur.txt"
+    # Bash 3.2 treats an empty array expansion as unset with nounset enabled.
+    aur_packages=(${package_list[@]+"${package_list[@]}"})
+    aur_helper=
+    if [ "${#aur_packages[@]}" -gt 0 ]; then
+        if command -v yay >/dev/null 2>&1; then aur_helper=yay
+        elif command -v paru >/dev/null 2>&1; then aur_helper=paru
+        else printf 'AUR packages require an installed yay or paru helper.\n' >&2; exit 1
+        fi
+    fi
+    read_packages "$root/packages/arch.txt"
+    require sudo
+    sudo pacman -S --needed "${package_list[@]}"
+    if [ -n "$aur_helper" ]; then "$aur_helper" -S --needed "${aur_packages[@]}"; fi
+fi
+
+require git
+require curl
+omz=$HOME/.oh-my-zsh
+omz_tmp=
+plugin_tmp=
+cleanup() {
+    [ -z "$omz_tmp" ] || rm -rf -- "$omz_tmp"
+    [ -z "$plugin_tmp" ] || rm -f -- "$plugin_tmp"
+    return 0
+}
+trap cleanup EXIT
+
+if [ -r "$omz/oh-my-zsh.sh" ]; then
+    printf 'Reusing %s\n' "$omz"
+elif [ -e "$omz" ] || [ -L "$omz" ]; then
+    printf '%s exists but is not a usable Oh My Zsh installation; leaving it untouched.\n' "$omz" >&2
+    exit 1
+else
+    omz_tmp=$(mktemp -d "$HOME/.oh-my-zsh.install.XXXXXX")
+    git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$omz_tmp"
+    [ -r "$omz_tmp/oh-my-zsh.sh" ]
+    mv -- "$omz_tmp" "$omz"
+    omz_tmp=
+fi
+
+version=v0.24.0
+plugin_dir=$root/config/zellij/plugins
+mkdir -p -- "$plugin_dir"
+plugin_tmp=$(mktemp "$plugin_dir/.zjstatus.XXXXXX")
+curl --fail --location --show-error --silent --retry 3 \
+    "https://github.com/dj95/zjstatus/releases/download/$version/zjstatus.wasm" \
+    --output "$plugin_tmp"
+# Reject empty/error pages and incomplete headers before replacing the working file.
+magic=$(od -An -tx1 -N8 "$plugin_tmp" | tr -d ' \n')
+[ "$magic" = 0061736d01000000 ] || { printf 'Downloaded zjstatus is not a WebAssembly module.\n' >&2; exit 1; }
+chmod 644 "$plugin_tmp"
+mv -f -- "$plugin_tmp" "$plugin_dir/zjstatus.wasm"
+plugin_tmp=
+printf 'Installed zjstatus %s\n' "$version"

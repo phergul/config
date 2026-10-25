@@ -1,6 +1,6 @@
 *.wasm
-result
-result-*
+config/zellij/plugins/.zjstatus.*
+__pycache__/
 nvim.log
 .DS_Store
 config/karabiner/automatic_backups

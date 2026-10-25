@@ -1,0 +1,27 @@
+# Update the system with pacman -Syu before using this list.
+base-devel
+curl
+eza
+fastfetch
+fzf
+ghostty
+github-cli
+git
+go
+jq
+lazydocker
+lazygit
+neovim
+nodejs-lts-jod
+npm
+ripgrep
+sqlite
+starship
+tokei
+tree-sitter-cli
+ttf-jetbrains-mono-nerd
+zellij
+zoxide
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
