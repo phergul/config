@@ -1,0 +1,92 @@
+[
+  {
+    "context": "Editor && mode == full && vim_mode == normal && !menu",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+      "escape": "buffer_search::Dismiss",
+      "space w": "workspace::Save",
+      "space q": "diagnostics::DeployCurrentFile",
+      "space e": "pane::RevealInProjectPanel",
+      "space b n": "pane::SwapItemRight",
+      "space b p": "pane::SwapItemLeft",
+      "space b b": "tab_switcher::ToggleAll",
+      "space b d": "pane::CloseActiveItem",
+      "space b shift-d": "pane::CloseOtherItems",
+      "space space": "tab_switcher::ToggleAll",
+      "space /": "buffer_search::Deploy",
+      "space s h": "zed::OpenDocs",
+      "space s k": "zed::OpenKeymap",
+      "space s f": "file_finder::Toggle",
+      "space s w": ["pane::DeploySearch", { "whole_word": true, "regex": false }],
+      "space s g": "pane::DeploySearch",
+      "space s d": "diagnostics::Deploy",
+      "space s r": "project_search::ToggleFocus",
+      "space s .": "file_finder::Toggle",
+      "space s b": "tab_switcher::ToggleAll",
+      "space s s": "git_panel::ToggleFocus",
+      "space s /": "pane::DeploySearch",
+      "space s shift-r": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space s shift-v": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space g": ["task::Spawn", { "task_name": "lazygit", "reveal_target": "center" }],
+      "space h b": "git::Blame",
+      "space h t": "editor::ToggleGitBlameInline",
+      "space h p": "editor::ToggleSelectedDiffHunks",
+      "space h d": "git::Diff",
+      "space h r": "git::Restore",
+      "space d v": "git::Diff",
+      "] c": "editor::GoToHunk",
+      "[ c": "editor::GoToPreviousHunk",
+      "g r n": "editor::Rename",
+      "g r r": "editor::FindAllReferences",
+      "g r i": "editor::GoToImplementation",
+      "g r d": "editor::GoToDefinition",
+      "g r shift-d": "editor::GoToDeclaration",
+      "g r t": "editor::GoToTypeDefinition",
+      "g shift-o": "outline::Toggle",
+      "g shift-w": "project_symbols::Toggle",
+      "shift-k": "editor::Hover",
+      "space t i": "editor::ToggleInlayHints"
+    }
+  },
+  {
+    "context": "Editor && mode == full && (vim_mode == normal || vim_mode == visual) && !menu",
+    "bindings": {
+      "space d": ["workspace::SendKeystrokes", "\" _ d"],
+      "space f": "editor::Format",
+      "space c c": "editor::ToggleEditPrediction",
+      "g r a": "editor::ToggleCodeActions"
+    }
+  },
+  {
+    "context": "Editor && mode == full && vim_mode == visual && !menu",
+    "bindings": {
+      "space p": ["workspace::SendKeystrokes", "\" _ d shift-p"]
+    }
+  },
+  {
+    "context": "Editor && mode == full && (vim_mode == normal || vim_mode == insert) && !menu",
+    "bindings": {
+      "cmd-shift-h": ["workspace::SendKeystrokes", "escape g shift-t"],
+      "cmd-shift-l": ["workspace::SendKeystrokes", "escape g t"]
+    }
+  },
+  {
+    "context": "Editor && mode == full && (vim_mode == normal || vim_mode == visual) && edit_prediction && !menu",
+    "bindings": {
+      "§": "editor::AcceptEditPrediction"
+    }
+  },
+  {
+    "context": "Editor && mode == full && vim_mode == insert && showing_completions",
+    "bindings": {
+      "tab": "editor::ContextMenuNext",
+      "shift-tab": "editor::ContextMenuPrevious",
+      "enter": "editor::ConfirmCompletion"
+    }
+  }
+]

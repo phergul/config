@@ -23,7 +23,7 @@ exec zsh
 
 `make` alone prints help. `make install` works offline and never invokes a package
 manager. Run `make packages` before using Zellij so its status plugin is available.
-The installer links a directory for Neovim, individual files for Ghostty and Zellij,
+The installer links a directory for Neovim, individual files for Zed, Ghostty and Zellij,
 and the macOS directories for AeroSpace and Karabiner. Starship config is shared
 on both platforms. It selects the existing macOS/Linux Zellij layout automatically.
 
@@ -37,6 +37,13 @@ On macOS the shell initializes Homebrew at `/opt/homebrew` or `/usr/local` and
 adds the keg-only Node 22 binary directory to PATH. It also adds `~/bin` and
 `~/go/bin` on both platforms. Changing the account's default shell is a manual
 choice; the installer does not run `chsh`.
+
+## Zed
+
+The [Zed keymap](config/zed/README.md) mirrors the Neovim Space-leader mappings
+using Zed's native Vim mode. `make install` links its keymap and lazygit task;
+enable Vim mode in Zed's own settings. The mapping guide lists the equivalents
+and plugin features that cannot be reproduced directly.
 
 ## Packages
 
